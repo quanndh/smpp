@@ -16,7 +16,7 @@ module.exports = {
                 session.submit_sm({
                     source_addr: "9819",
                     destination_addr: "84829908363",
-                    short_message: text
+                    short_message: "kỹ thuật test"
                 }, function (pdu) {
                     if (pdu.command_status == 0) {
                         return res.status(200).send({
