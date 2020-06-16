@@ -1,6 +1,8 @@
 const config = require("../../configs/configs");
 const smpp = require('smpp');
-const session = require("../../../index");
+let session = smpp.connect(
+    `smpp://${config.SMPP_HOST}:2775`
+);
 
 module.exports = {
     sendMessage: (req, res) => {
@@ -25,6 +27,7 @@ module.exports = {
                 }, function (pdu) {
                     console.log(3, pdu)
                     if (pdu.command_status == 0) {
+                        session.destroy();
                         return res.status(200).send({
                             code: 0,
                             shortcode,

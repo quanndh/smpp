@@ -54,18 +54,18 @@ server.listen(config.PORT, () => {
     console.log(`Api server: process ${process.pid} running on port ${config.PORT}`);
 });
 
-session.bind_transceiver({
-    system_id: config.SMPP_USERNAME,
-    password: config.SMPP_PASSWORD,
-}, (pdu) => {
-    if (pdu.command_status !== 0) {
-        console.log("can not bind smpp")
-    } else {
-        session.on("pdu", (pdu) => {
-            console.log(1, pdu)
-        })
-    }
-})
+// session.bind_transceiver({
+//     system_id: config.SMPP_USERNAME,
+//     password: config.SMPP_PASSWORD,
+// }, (pdu) => {
+//     if (pdu.command_status !== 0) {
+//         console.log("can not bind smpp")
+//     } else {
+//         session.on("pdu", (pdu) => {
+//             console.log(1, pdu)
+//         })
+//     }
+// })
 
 module.exports = session
 
