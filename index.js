@@ -67,7 +67,7 @@ server.listen(config.PORT, () => {
 //     }
 // })
 
-session.("devliver_sm", pdu => {
+session.on("devliver_sm", pdu => {
     console.log(1, pdu)
 })
 
