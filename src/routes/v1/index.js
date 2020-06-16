@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-router.use("/vaccination/vaccine", require("./vaccination/vaccines.route"));
+router.use("/message", require("./message/message.route"));
 
 
 module.exports = router;

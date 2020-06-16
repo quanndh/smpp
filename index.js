@@ -13,10 +13,10 @@ const helmet = require("helmet");
 const authMiddleware = require('./src/middleware/auth/auth.middleware');
 dotenv.config({ "path": ".env" });
 
-const smpp = require('smpp');
-let session = smpp.connect(
-    `smpp://${config.SMPP_HOST}:2775`
-);
+// const smpp = require('smpp');
+// let session = smpp.connect(
+//     `smpp://${config.SMPP_HOST}:2775`
+// );
 // config server with http of https
 server = http.createServer(app);
 
@@ -55,38 +55,38 @@ server.listen(config.PORT, () => {
     console.log(`Api server: process ${process.pid} running on port ${config.PORT}`);
 });
 
-let isConnected = false
-session.on('connect', () => {
-    isConnected = true;
+// let isConnected = false
+// session.on('connect', () => {
+//     isConnected = true;
 
-    session.bind_transceiver({
-        system_id: config.SMPP_USERNAME,
-        password: config.SMPP_PASSWORD,
-        // interface_version: 1,
-        // system_type: '380666000600',
-        // address_range: '+380666000600',
-        // addr_ton: 1,
-        // addr_npi: 1,
-    }, (pdu) => {
-        console.log(pdu)
-        if (pdu.command_status == 0) {
-            console.log('Successfully bound')
-            sendSMS("9819", "0829908363", "ky thuat test")
-        }
-    })
-})
+//     session.bind_transceiver({
+//         system_id: config.SMPP_USERNAME,
+//         password: config.SMPP_PASSWORD,
+//         // interface_version: 1,
+//         // system_type: '380666000600',
+//         // address_range: '+380666000600',
+//         // addr_ton: 1,
+//         // addr_npi: 1,
+//     }, (pdu) => {
+//         console.log(pdu)
+//         if (pdu.command_status == 0) {
+//             console.log('Successfully bound')
+//             sendSMS("9819", "0829908363", "ky thuat test")
+//         }
+//     })
+// })
 
-session.on('close', () => {
-    console.log('smpp is now disconnected')
-    if (isConnected) {
-        session.connect();    //reconnect again
-    }
-})
+// session.on('close', () => {
+//     console.log('smpp is now disconnected')
+//     if (isConnected) {
+//         session.connect();    //reconnect again
+//     }
+// })
 
-session.on('error', error => {
-    console.log('smpp error', error)
-    isConnected = false;
-});
+// session.on('error', error => {
+//     console.log('smpp error', error)
+//     isConnected = false;
+// });
 
 function sendSMS(from, to, text) {
     from = `+${from}`
