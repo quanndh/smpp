@@ -56,9 +56,9 @@ server.listen(config.PORT, () => {
     console.log(`Api server: process ${process.pid} running on port ${config.PORT}`);
 });
 
-// let isConnected = false
+let isConnected = false
 session.on('connect', () => {
-    // isConnected = true;
+    isConnected = true;
 
     session.bind_transceiver({
         system_id: config.SMPP_USERNAME,
@@ -79,14 +79,14 @@ session.on('connect', () => {
 
 session.on('close', () => {
     console.log('smpp is now disconnected')
-    // if (isConnected) {
-    //     session.connect();    //reconnect again
-    // }
+    if (isConnected) {
+        session.connect();    //reconnect again
+    }
 })
 
 session.on('error', error => {
     console.log('smpp error', error)
-    // isConnected = false;
+    isConnected = false;
 });
 
 function sendSMS(from, to, text) {
