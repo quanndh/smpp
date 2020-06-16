@@ -11,12 +11,11 @@ const dotenv = require("dotenv");
 let server = null;
 const helmet = require("helmet");
 const authMiddleware = require('./src/middleware/auth/auth.middleware');
+const smpp = require('smpp');
+let session = smpp.connect(
+    `smpp://${config.SMPP_HOST}:2775`
+);
 dotenv.config({ "path": ".env" });
-
-// const smpp = require('smpp');
-// let session = smpp.connect(
-//     `smpp://${config.SMPP_HOST}:2775`
-// );
 // config server with http of https
 server = http.createServer(app);
 
@@ -54,6 +53,20 @@ app.use("/", (req, res) => res.send("API running!"));
 server.listen(config.PORT, () => {
     console.log(`Api server: process ${process.pid} running on port ${config.PORT}`);
 });
+
+session.bind_transceiver({
+    system_id: config.SMPP_USERNAME,
+    password: config.SMPP_PASSWORD,
+}, (pdu) => {
+    if (pdu.command_status !== 0) {
+        console.log("can not bind smpp")
+    } else {
+        session.on("pdu", (pdu) => {
+
+        })
+    }
+})
+
 
 
 
