@@ -1,8 +1,6 @@
 const config = require("../../configs/configs");
 const smpp = require('smpp');
-let session = smpp.connect(
-    `smpp://${config.SMPP_HOST}:2775`
-);
+const session = require("../../../index");
 
 module.exports = {
     sendMessage: (req, res) => {

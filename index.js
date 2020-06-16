@@ -67,6 +67,8 @@ session.bind_transceiver({
     }
 })
 
+module.exports = session
+
 
 
 
