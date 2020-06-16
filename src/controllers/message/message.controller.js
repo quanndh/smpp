@@ -27,6 +27,9 @@ module.exports = {
                     if (pdu.command_status == 0) {
                         return res.status(200).send({
                             code: 0,
+                            shortcode,
+                            msisdn,
+                            mo,
                             message: "success"
                         })
                     } else {
