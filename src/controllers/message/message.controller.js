@@ -7,9 +7,8 @@ let session = smpp.connect(
 module.exports = {
     sendMessage: (req, res) => {
         try {
-            let { smppSession } = req;
             let { shortcode, msisdn, mo } = req.query;
-            smppSession.bind_transceiver({
+            session.bind_transceiver({
                 system_id: config.SMPP_USERNAME,
                 password: config.SMPP_PASSWORD,
             }, (pdu) => {
@@ -21,14 +20,14 @@ module.exports = {
 
                     })
                 }
-                smppSession.submit_sm({
+                session.submit_sm({
                     source_addr: shortcode,
                     destination_addr: msisdn,
                     short_message: mo
                 }, function (pdu) {
                     console.log(3, pdu)
                     if (pdu.command_status == 0) {
-                        smppSession.close();
+                        session.close();
                         return res.status(200).send({
                             code: 0,
                             shortcode,
