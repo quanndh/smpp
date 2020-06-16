@@ -5,7 +5,7 @@
  */
 
 module.exports = {
-  PORT: process.env.NODE_ENV === "production" ? 4785 : 6868,
+  PORT: process.env.NODE_ENV === "production" ? 4789 : 4789,
   URL: process.env.NODE_ENV === "production" ? "72.16.50.11:4785" : 'http://localhost:6868',
 
   SMPP_HOST: "103.129.188.31",

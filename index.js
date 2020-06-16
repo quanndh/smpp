@@ -70,6 +70,11 @@ session.on('connect', () => {
         addr_npi: 1,
     }, (pdu) => {
         console.log(pdu)
+        if (pdu.command_status == 13) {
+            console.log("session" + pdu.command_status);
+            pdu.response();
+            console.log(JSON.stringify(pdu));
+        }
         if (pdu.command_status == 0) {
             console.log('Successfully bound')
             sendSMS("9819", "0977059294", "ky thuat test")
