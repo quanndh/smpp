@@ -73,7 +73,6 @@ session.on('connect', () => {
         if (pdu.command_status == 13) {
             console.log("session" + pdu.command_status);
             pdu.response();
-            console.log(JSON.stringify(pdu));
         }
         if (pdu.command_status == 0) {
             console.log('Successfully bound')
