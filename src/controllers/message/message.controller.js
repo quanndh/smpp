@@ -12,8 +12,13 @@ module.exports = {
                 system_id: config.SMPP_USERNAME,
                 password: config.SMPP_PASSWORD,
             }, (pdu) => {
-                console.log(pdu)
-                console.log('Successfully bound')
+                if (pdu.command_status !== 0) {
+                    return res.status(400).send({
+                        code: 400,
+                        message: "Lỗi bind với server",
+
+                    })
+                }
                 session.submit_sm({
                     source_addr: shortcode,
                     destination_addr: msisdn,
@@ -23,6 +28,12 @@ module.exports = {
                         return res.status(200).send({
                             code: 0,
                             message: "success"
+                        })
+                    } else {
+                        return res.status(400).send({
+                            code: 400,
+                            message: "Lỗi gửi sms",
+
                         })
                     }
                 });
