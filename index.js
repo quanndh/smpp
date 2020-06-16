@@ -67,7 +67,21 @@ server.listen(config.PORT, () => {
 //     }
 // })
 
-
+session.bind_transceiver({
+    system_id: 'xxxx',
+    password: 'xxxxx'
+}, function (pdu) {
+    if (pdu.command_status == 0) {
+        session.on('deliver_sm', function (pdu) {
+            console.log(pdu)
+            if (pdu.esm_class == 4) {
+                var shortMessage = pdu.short_message;
+                console.log('Received DR: %s', shortMessage.trim());
+                session.send(pdu.response());
+            }
+        });
+    }
+});
 
 
 
