@@ -62,7 +62,7 @@ session.bind_transceiver({
         console.log("can not bind smpp")
     } else {
         session.on("pdu", (pdu) => {
-
+            console.log(1, pdu)
         })
     }
 })
