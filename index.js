@@ -67,8 +67,6 @@ server.listen(config.PORT, () => {
 //     }
 // })
 
-module.exports = session
-
 
 
 
