@@ -11,10 +11,10 @@ const dotenv = require("dotenv");
 let server = null;
 const helmet = require("helmet");
 const authMiddleware = require('./src/middleware/auth/auth.middleware');
-const smpp = require('smpp');
-let session = smpp.connect(
-    `smpp://${config.SMPP_HOST}:2775`
-);
+// const smpp = require('smpp');
+// let session = smpp.connect(
+//     `smpp://${config.SMPP_HOST}:2775`
+// );
 dotenv.config({ "path": ".env" });
 // config server with http of https
 server = http.createServer(app);
@@ -67,21 +67,22 @@ server.listen(config.PORT, () => {
 //     }
 // })
 
-session.bind_transceiver({
-    system_id: 'xxxx',
-    password: 'xxxxx'
-}, function (pdu) {
-    if (pdu.command_status == 0) {
-        session.on('deliver_sm', function (pdu) {
-            console.log(pdu)
-            if (pdu.esm_class == 4) {
-                var shortMessage = pdu.short_message;
-                console.log('Received DR: %s', shortMessage.trim());
-                session.send(pdu.response());
-            }
-        });
-    }
-});
+// session.bind_transceiver({
+//     system_id: 'xxxx',
+//     password: 'xxxxx'
+// }, function (pdu) {
+
+//     if (pdu.command_status == 0) {
+//         session.on('deliver_sm', function (pdu) {
+//             console.log(pdu)
+//             if (pdu.esm_class == 4) {
+//                 var shortMessage = pdu.short_message;
+//                 console.log('Received DR: %s', shortMessage.trim());
+//                 session.send(pdu.response());
+//             }
+//         });
+//     }
+// });
 
 
 
