@@ -12,20 +12,18 @@ module.exports = {
                 password: config.SMPP_PASSWORD,
             }, (pdu) => {
                 console.log(pdu)
-                if (pdu.command_status == 0) {
-                    console.log('Successfully bound')
-                    session.submit_sm({
-                        source_addr: "9819",
-                        destination_addr: "84829908363",
-                        short_message: text
-                    }, function (pdu) {
-                        if (pdu.command_status == 0) {
-                            return res.status(200).send({
-                                message: "success"
-                            })
-                        }
-                    });
-                }
+                console.log('Successfully bound')
+                session.submit_sm({
+                    source_addr: "9819",
+                    destination_addr: "84829908363",
+                    short_message: text
+                }, function (pdu) {
+                    if (pdu.command_status == 0) {
+                        return res.status(200).send({
+                            message: "success"
+                        })
+                    }
+                });
             })
         } catch (error) {
             return res.send({
