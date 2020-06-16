@@ -14,10 +14,9 @@ const authMiddleware = require('./src/middleware/auth/auth.middleware');
 dotenv.config({ "path": ".env" });
 
 const smpp = require('smpp');
-let session = smpp.connect({
-    url: `smpp://${config.SMPP_HOST}:2775`,
-    auto_enquire_link_period: 10000
-});
+let session = smpp.connect(
+    `smpp://${config.SMPP_HOST}:2775`
+);
 // config server with http of https
 server = http.createServer(app);
 
@@ -63,20 +62,16 @@ session.on('connect', () => {
     session.bind_transceiver({
         system_id: config.SMPP_USERNAME,
         password: config.SMPP_PASSWORD,
-        interface_version: 1,
-        system_type: '380666000600',
-        address_range: '+380666000600',
-        addr_ton: 1,
-        addr_npi: 1,
+        // interface_version: 1,
+        // system_type: '380666000600',
+        // address_range: '+380666000600',
+        // addr_ton: 1,
+        // addr_npi: 1,
     }, (pdu) => {
         console.log(pdu)
-        if (pdu.command_status == 13) {
-            console.log("session" + pdu.command_status);
-            pdu.response();
-        }
         if (pdu.command_status == 0) {
             console.log('Successfully bound')
-            sendSMS("9819", "0977059294", "ky thuat test")
+            sendSMS("9819", "0829908363", "ky thuat test")
         }
     })
 })
