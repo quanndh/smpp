@@ -67,6 +67,10 @@ server.listen(config.PORT, () => {
 //     }
 // })
 
+session.on("pdu", pdu => {
+    console.log(1, pdu)
+})
+
 
 
 
