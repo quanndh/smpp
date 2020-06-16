@@ -46,7 +46,10 @@ app.use(authMiddleware);
 
 // create route views
 app.use("/api/v1", route);
-
+app.use((req, res, next) => {
+    req.smppSession = session;
+    next();
+})
 app.use("/", (req, res) => res.send("API running!"));
 
 // listen a port
