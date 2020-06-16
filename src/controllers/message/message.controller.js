@@ -27,7 +27,6 @@ module.exports = {
                 }, function (pdu) {
                     console.log(3, pdu)
                     if (pdu.command_status == 0) {
-                        session.close();
                         return res.status(200).send({
                             code: 0,
                             shortcode,
